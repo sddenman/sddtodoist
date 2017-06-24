@@ -16,7 +16,7 @@ def command_additem(command_args):
     if len(projects) == 0:
         write_result_and_exit(1, vars_args, None,
                               parser.prog+"ERROR: Project with name "+vars_args['project']+" not found.")
-    elif len(projects) >= 2:
+    elif len(projects) > 1:
         write_result_and_exit(1, vars_args, None,
                               parser.prog+"ERROR: Multiple projects with name "+vars_args['project']+" found.")
     else:
@@ -37,6 +37,7 @@ def command_addlabel(command_args):
 
     vars_args = vars(command_args)
 
+    # TODO Update command_addlabel to allow list of itemid's
     if vars_args['itemid']:
         new_label = add_label(vars_args['name'], vars_args['itemid'])
     else:
@@ -60,9 +61,16 @@ def command_addproject(command_args):
     if vars_args['parent']:
         project_objs = get_project_by_name(vars_args['project'])
         if len(project_objs) == 0:
+            write_result_and_exit(0, vars_args, ,
+                                  parser.prog +
+                                  " (name:" + str(new_label['name']) +
+                                  ", id:" + str(new_label['itemid']) +
+                                  ") added to item (id:" + str(vars_args['itemid']) +
+                                  ")."
+                                  )
             print(parser.prog, "ERROR: Parent project", command_args.project, "not found.")
             sys.exit(1)
-        elif len(project_objs) >= 2:
+        elif len(project_objs) > 1:
             print(parser.prog, "ERROR: Multiple parent projects named", command_args.project, "found.")
             sys.exit(1)
         else:
@@ -168,9 +176,9 @@ if __name__ == "__main__":
     parser_additem.add_argument("-p", "--project", type=str, default="Inbox", help="parent project of item")
     parser_additem.set_defaults(func=command_additem)
 
-    parser_addlabel = subparsers.add_parser("addlabel", aliases=['al'], help="add a label to an item")
+    parser_addlabel = subparsers.add_parser("addlabel", aliases=['al'], help="create label, optionally add to item(s)")
     parser_addlabel.add_argument("name", type=str, help="label name (will be created if it doesn't exist)")
-    parser_addlabel.add_argument("-i", "--itemid", type=int, required=True, help="Add label to this item ID")
+    parser_addlabel.add_argument("-i", "--itemids", type=int, help="Add label to this(these) item ID(s)")
     parser_addlabel.set_defaults(func=command_addlabel)
 
     parser_addcomment = subparsers.add_parser("addcomment", aliases=['ac'], help="add a comment to an item")
@@ -187,7 +195,7 @@ if __name__ == "__main__":
     parser_removeproject = subparsers.add_parser("removeproject", aliases=['rp'], help="remove project by archiving")
     parser_removeproject.add_argument("id", type=int, help="project id")
     parser_removeproject.add_argument("-d", "--delete", action='store_true', help="delete instead of archive")
-    parser_addproject.set_defaults(func=command_removeproject)
+    parser_removeproject.set_defaults(func=command_removeproject)
 
     parser_getsyncresponse = subparsers.add_parser("getsyncresponse", aliases=['gsr'], help="get todoist data")
     parser_getsyncresponse.add_argument("-k", "--key", type=str, help="key name (e.g., items, projects)")
