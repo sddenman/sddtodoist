@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list id="a280637a-17f9-4a2c-8e9c-fd00cc50d4a0" name="Default" comment="Changed PyCharm project version control from SVN to Git." />
     <list default="true" id="92c553aa-4734-48a7-8d48-130accf07375" name="Update command_addlabel to allow list of itemid's" comment="Removing .idea folder from source control.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="ec3f5b6b-f055-4214-b1fb-655774ae1bab" name="Update command_addlabel to handle case where no itemid list is present" comment="Update command_addlabel to handle case where no itemid list is present" />
@@ -131,7 +130,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="add_unversioned_files" value="true" />
+    <property name="add_unversioned_files" value="true&#10;/Users/steve/Documents/Sync/Tools/sddtodoist/.idea/workspace.xml" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -669,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498346577975</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Removing .idea folder from source control.">
+      <created>1498346826872</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1498346826872</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <option name="clearContext" value="false" />
     <option name="createBranch" value="false" />
     <servers>
@@ -1209,18 +1215,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
