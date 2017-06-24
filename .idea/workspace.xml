@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="a280637a-17f9-4a2c-8e9c-fd00cc50d4a0" name="Default" comment="Changed PyCharm project version control from SVN to Git." />
-    <list default="true" id="92c553aa-4734-48a7-8d48-130accf07375" name="Update command_addlabel to allow list of itemid's" comment="Changing .getignore to not ignore itself.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="92c553aa-4734-48a7-8d48-130accf07375" name="Update command_addlabel to allow list of itemid's" comment="Removing .idea folder from source control.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="ec3f5b6b-f055-4214-b1fb-655774ae1bab" name="Update command_addlabel to handle case where no itemid list is present" comment="Update command_addlabel to handle case where no itemid list is present" />
@@ -24,7 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sddtodoist_shell.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sddtodoist_shell.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sddtodoist_shell.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1648">
@@ -32,16 +31,6 @@
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -670,7 +659,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498345555822</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Removing .idea folder from source control.">
+      <created>1498345671688</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1498345671688</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <option name="clearContext" value="false" />
     <option name="createBranch" value="false" />
     <servers>
@@ -700,9 +696,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="834" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3040057" sideWeight="0.4698276" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3040057" sideWeight="0.4698276" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32033426" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.50333333" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40860215" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -768,7 +763,8 @@
     <MESSAGE value="Update command_addlabel to allow list of itemid's" />
     <MESSAGE value="Changing .getignore to not ignore itself." />
     <MESSAGE value="Changing .getignore to ignore all other dot files in project root folder." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing .getignore to ignore all other dot files in project root folder." />
+    <MESSAGE value="Removing .idea folder from source control." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing .idea folder from source control." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1210,6 +1206,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sddtodoist_shell.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1648">
@@ -1217,14 +1221,6 @@
           <folding>
             <element signature="e#24#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
