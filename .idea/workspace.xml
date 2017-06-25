@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="a280637a-17f9-4a2c-8e9c-fd00cc50d4a0" name="Default" comment="Changed PyCharm project version control from SVN to Git." />
-    <list default="true" id="92c553aa-4734-48a7-8d48-130accf07375" name="Update command_addlabel to allow list of itemid's" comment="Removing .idea folder from source control.">
+    <list id="a280637a-17f9-4a2c-8e9c-fd00cc50d4a0" name="Default" comment="Changed PyCharm project version control from SVN to Git.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <list id="ec3f5b6b-f055-4214-b1fb-655774ae1bab" name="Update command_addlabel to handle case where no itemid list is present" comment="Update command_addlabel to handle case where no itemid list is present" />
+    <list default="true" id="4076dbee-da75-4c61-8463-44eb9ee9b8a8" name="fix_addlabel_issues" comment="fix_addlabel_issues" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
-    <option name="SHOW_DIALOG" value="false" />
+    <option name="SHOW_DIALOG" value="true" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="true" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="false" />
@@ -22,7 +22,32 @@
     <favorites_list name="Todoist" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="sddtodoist.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sddtodoist.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="49">
+              <caret line="63" column="44" lean-forward="false" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sddtodoist_shell.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sddtodoist_shell.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1317">
+              <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+              <folding>
+                <element signature="e#24#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -55,21 +80,28 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fix_addlabel_issues" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/sddtodoist.ini" />
-        <option value="$PROJECT_DIR$/sddtodoist.py" />
-        <option value="$PROJECT_DIR$/sddtodoist_shell.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/sddtodoist_shell.py" />
+        <option value="$PROJECT_DIR$/sddtodoist.py" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="341" />
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="834" />
+    <option name="height" value="922" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -129,8 +161,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="tasks.servers" />
     <property name="add_unversioned_files" value="true&#10;/Users/steve/Documents/Sync/Tools/sddtodoist/.idea/workspace.xml" />
+    <property name="tasks.open.task.update.state.enabled" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -144,7 +177,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.sddtodoist_shell addproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;">
+  <component name="RunManager" selected="Python.sddtodoist_shell --pipeid additem &quot;Testing additem from sddtodoist_shell - DELETE ME!&quot;">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -291,42 +324,6 @@
       <module name="Todoist" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
       <option name="PARAMETERS" value="addlabel &quot;testlabel&quot;" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="sddtodoist_shell addlabel &quot;testlabel&quot; --id 89467140" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Todoist" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
-      <option name="PARAMETERS" value="addlabel &quot;testlabel&quot; --id 89467140" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="sddtodoist_shell addcomment &quot;Test comment&quot; --id 90794618 --file Medications.numbers" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Todoist" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
-      <option name="PARAMETERS" value="addcomment &quot;Test comment&quot; --id 90794618 --file Medications.numbers" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
@@ -529,23 +526,97 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <list size="16">
+    <configuration default="false" name="sddtodoist_shell addcomment &quot;Test comment&quot; --itemid 90794618 --file Medications.numbers" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Todoist" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
+      <option name="PARAMETERS" value="addcomment &quot;Test comment&quot; --itemid 90794618 --file Medications.numbers" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sddtodoist_shell addlabel &quot;testlabel&quot; --itemids 2238494323,2238493417" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Todoist" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
+      <option name="PARAMETERS" value="addlabel &quot;testlabel&quot; --itemids 2238494323,2238493417" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sddtodoist_shell addlabel &quot;testlabel&quot; --itemids 2238494323" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Todoist" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
+      <option name="PARAMETERS" value="addlabel &quot;testlabel&quot; --itemids 2238494323" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sddtodoist_shell --pipeid additem &quot;Testing additem from sddtodoist_shell - DELETE ME!&quot;" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Todoist" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sddtodoist_shell.py" />
+      <option name="PARAMETERS" value="--pipeid additem &quot;Testing additem from sddtodoist_shell - DELETE ME!&quot;" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <list size="18">
       <item index="0" class="java.lang.String" itemvalue="Python.sddtodoist_shell" />
       <item index="1" class="java.lang.String" itemvalue="Python.sddtodoist_shell additem &quot;Testing additem from sddtodoist_shell - DELETE ME!&quot;" />
       <item index="2" class="java.lang.String" itemvalue="Python.sddtodoist_shell addlabel &quot;testlabel&quot;" />
-      <item index="3" class="java.lang.String" itemvalue="Python.sddtodoist_shell addlabel &quot;testlabel&quot; --id 89467140" />
-      <item index="4" class="java.lang.String" itemvalue="Python.sddtodoist_shell addcomment &quot;Test comment&quot; --id 90794618 --file Medications.numbers" />
-      <item index="5" class="java.lang.String" itemvalue="Python.sddtodoist_shell addproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
-      <item index="6" class="java.lang.String" itemvalue="Python.sddtodoist_shell deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
-      <item index="7" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeobj deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
-      <item index="8" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeid deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
-      <item index="9" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse" />
-      <item index="10" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeobj getsyncresponse" />
-      <item index="11" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key items" />
-      <item index="12" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key notes" />
-      <item index="13" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key projects" />
-      <item index="14" class="java.lang.String" itemvalue="Python.sddtodoist_shell --help" />
-      <item index="15" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeid getsyncresponse" />
+      <item index="3" class="java.lang.String" itemvalue="Python.sddtodoist_shell addproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
+      <item index="4" class="java.lang.String" itemvalue="Python.sddtodoist_shell deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
+      <item index="5" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeobj deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
+      <item index="6" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeid deleteproject &quot;Testing addproject from sddtodoist_shell - DELETE ME!&quot;" />
+      <item index="7" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse" />
+      <item index="8" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeobj getsyncresponse" />
+      <item index="9" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key items" />
+      <item index="10" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key notes" />
+      <item index="11" class="java.lang.String" itemvalue="Python.sddtodoist_shell getsyncresponse --key projects" />
+      <item index="12" class="java.lang.String" itemvalue="Python.sddtodoist_shell --help" />
+      <item index="13" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeid getsyncresponse" />
+      <item index="14" class="java.lang.String" itemvalue="Python.sddtodoist_shell addcomment &quot;Test comment&quot; --itemid 90794618 --file Medications.numbers" />
+      <item index="15" class="java.lang.String" itemvalue="Python.sddtodoist_shell addlabel &quot;testlabel&quot; --itemids 2238494323,2238493417" />
+      <item index="16" class="java.lang.String" itemvalue="Python.sddtodoist_shell addlabel &quot;testlabel&quot; --itemids 2238494323" />
+      <item index="17" class="java.lang.String" itemvalue="Python.sddtodoist_shell --pipeid additem &quot;Testing additem from sddtodoist_shell - DELETE ME!&quot;" />
     </list>
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -580,7 +651,7 @@
       <created>1487626585738</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1498265375723</updated>
+      <updated>1498347756876</updated>
     </task>
     <task id="LOCAL-00001" summary="Changed PyCharm project version control from SVN to Git.">
       <created>1497375823189</created>
@@ -603,16 +674,16 @@
       <option name="project" value="LOCAL" />
       <updated>1497376687712</updated>
     </task>
-    <task active="true" id="LOCAL-00004" summary="Update command_addlabel to allow list of itemid's">
-      <changelist id="92c553aa-4734-48a7-8d48-130accf07375" name="Update command_addlabel to allow list of itemid's" comment="" />
+    <task id="LOCAL-00004" summary="Update command_addlabel to allow list of itemid's">
+      <changelist id="" name="Update command_addlabel to allow list of itemid's" comment="" />
       <created>1498264647012</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1498265375744</updated>
+      <updated>1498347193184</updated>
     </task>
     <task id="LOCAL-00005" summary="Update command_addlabel to handle case where no itemid list is present">
-      <changelist id="ec3f5b6b-f055-4214-b1fb-655774ae1bab" name="Update command_addlabel to handle case where no itemid list is present" comment="" />
+      <changelist id="" name="Update command_addlabel to handle case where no itemid list is present" comment="" />
       <created>1498264940915</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
@@ -675,9 +746,64 @@
       <option name="project" value="LOCAL" />
       <updated>1498346826872</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Removing .idea folder from source control.">
+      <created>1498346980430</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1498346980430</updated>
+    </task>
+    <task id="LOCAL-00016">
+      <branch name="master" repository="$PROJECT_DIR$" original="true" />
+      <created>1498347747680</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1498348122982</updated>
+    </task>
+    <task id="LOCAL-00018">
+      <branch name="master" repository="$PROJECT_DIR$" />
+      <created>1498348107050</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1498348528224</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fix issue with addlabel command: Don't try to display updated itemid if no itemid specified">
+      <branch name="master" repository="$PROJECT_DIR$" original="true" />
+      <branch name="fix_addlabel_issues" repository="$PROJECT_DIR$" />
+      <branch name="fix_addlabel_issues" repository="$PROJECT_DIR$" original="true" />
+      <changelist id="4076dbee-da75-4c61-8463-44eb9ee9b8a8" name="fix_addlabel_issues" comment="" />
+      <created>1498348479290</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1498434499336</updated>
+    </task>
+    <task active="true" id="sddtodoist-2" summary="Update command_addlabel to allow list of item ids">
+      <branch name="fix_addlabel_issues" repository="$PROJECT_DIR$" />
+      <option name="closed" value="true" />
+      <created>1498371096000</created>
+      <option name="issue" value="true" />
+      <option name="number" value="2" />
+      <option name="presentableId" value="sddtodoist-2" />
+      <option name="project" value="sddtodoist" />
+      <option name="type" value="BUG" />
+      <updated>1498456099000</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix_addlabel_issues">
+      <created>1498434546315</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1498434546315</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <option name="updateEnabled" value="false" />
     <option name="clearContext" value="false" />
+    <option name="createChangelist" value="false" />
     <option name="createBranch" value="false" />
+    <option name="useBranch" value="true" />
     <servers>
       <GitHub shared="false" url="https://github.com">
         <option name="assignedIssuesOnly" value="false" />
@@ -686,9 +812,27 @@
         <token>dfc9df99df9fdfc8dfcbdf9bdf99df9ddfc8df9ddfc8dfcedf9bdf98df98df9edf9ddf99df9fdf9edfccdf9ddf9bdf9bdf9ddfcedfc9dfc9df93df99dfccdf9edf9adf9edf9cdf99df9bdfc9df9adf93</token>
         <option name="loginAnonymously" value="false" />
         <option name="preferredCloseTaskState" />
-        <option name="preferredOpenTaskState" />
+        <option name="preferredOpenTaskState">
+          <CustomTaskState id="RESOLVED" predefined="true" name="Resolved" />
+        </option>
         <option name="repoAuthor" value="sddenman" />
         <option name="repoName" value="sddtodoist" />
+        <option name="shouldFormatCommitMessage" value="false" />
+        <option name="useHttpAuthentication" value="false" />
+        <option name="useProxy" value="false" />
+        <option name="user" value="" />
+        <username />
+      </GitHub>
+      <GitHub shared="false" url="https://github.com">
+        <option name="assignedIssuesOnly" value="false" />
+        <commitMessageFormat>{id} {summary}</commitMessageFormat>
+        <password />
+        <token>df9adf93dfcfdf93df92df9ddfc8dfc9df93dfcbdf9cdf9ddfc8dfcfdfcedfc9df9edf92dfcedfccdf9edfc9df9edf93df92df9fdf9adf9ddfcbdfcedf9bdfcfdf9adf9bdfcbdf9adfcbdfcfdf9adf92</token>
+        <option name="loginAnonymously" value="false" />
+        <option name="preferredCloseTaskState" />
+        <option name="preferredOpenTaskState" />
+        <option name="repoAuthor" value="sddenman" />
+        <option name="repoName" value="hello-world" />
         <option name="shouldFormatCommitMessage" value="false" />
         <option name="useHttpAuthentication" value="false" />
         <option name="useProxy" value="false" />
@@ -704,16 +848,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="834" extended-state="6" />
+    <frame x="341" y="23" width="1440" height="922" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3040057" sideWeight="0.4698276" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32033426" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.50333333" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40860215" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35376045" sideWeight="0.49666667" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32754344" sideWeight="0.50333333" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40694788" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35359803" sideWeight="0.49666667" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839838" sideWeight="0.49666667" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25645295" sideWeight="0.49281314" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30148047" sideWeight="0.50333333" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25608012" sideWeight="0.49281314" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26799008" sideWeight="0.50333333" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39919356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29971388" sideWeight="0.5301724" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -773,18 +917,11 @@
     <MESSAGE value="Changing .getignore to not ignore itself." />
     <MESSAGE value="Changing .getignore to ignore all other dot files in project root folder." />
     <MESSAGE value="Removing .idea folder from source control." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing .idea folder from source control." />
+    <MESSAGE value="fix_addlabel_issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix_addlabel_issues" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -1195,26 +1332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sddtodoist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1590">
-          <caret line="106" column="51" lean-forward="true" selection-start-line="106" selection-start-column="51" selection-end-line="106" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sddtodoist_shell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1648">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1223,11 +1340,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sddtodoist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="63" column="44" lean-forward="false" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-2408">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sddtodoist_shell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1317">
+          <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+          <folding>
+            <element signature="e#24#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
