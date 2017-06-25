@@ -59,15 +59,22 @@ def add_comment(text: str, item_id: int, attachment: object = None) -> _todoistm
     return new_note
 
 
-def add_label(name: str, item_id: int = None) -> _todoistmodels.Label:
+def add_label(name: str, item_ids: list = None) -> _todoistmodels.Label:
 
     new_label = _todoistapi.labels.add(name)
-
-    if item_id:
-        item = _todoistapi.items.get_by_id(item_id)
-        item.update(labels=item['labels'].append(new_label['id']))
-
     _todoistapi.commit()
+
+    if item_ids:
+        for item_id in item_ids:
+            try:
+                item = _todoistapi.items.get_by_id(int(item_id))
+            except AttributeError:
+                print("ERROR: Item id " + item_id + " does not exist.")
+                raise
+            new_item_labels = item['labels']
+            new_item_labels[len(new_item_labels):] = [new_label['id']]
+            item.update(labels=new_item_labels)
+        _todoistapi.commit()
 
     return new_label
 
