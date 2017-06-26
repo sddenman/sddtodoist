@@ -41,7 +41,7 @@ def command_addlabel(command_args):
         try:
             new_label = add_label(vars_args['name'], vars_args['itemids'].split(","))
         except AttributeError:
-            write_result_and_exit(1, vars_args, dict(),
+            write_result_and_exit(1, vars_args, {},
                                   parser.prog +
                                   " ERROR: One or more of item ids " + str(vars_args['itemids']) + " not found."
                                   )
@@ -71,10 +71,10 @@ def command_addproject(command_args):
     if vars_args['parent']:
         project_objs = get_project_by_name(vars_args['project'])
         if len(project_objs) == 0:
-            write_result_and_exit(1, vars_args, dict(), parser.prog +
+            write_result_and_exit(1, vars_args, {}, parser.prog +
                                   " ERROR: Parent project named " + str(vars_args['parent']) + " not found.")
         elif len(project_objs) > 1:
-            write_result_and_exit(1, vars_args, dict(), parser.prog +
+            write_result_and_exit(1, vars_args, {}, parser.prog +
                                   " ERROR: Multiple parent projects named " + str(vars_args['parent']) + " found.")
         else:
             add_project_args['parent_project_id'] = project_objs[0]['id']
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     parser_additem.add_argument("-l", "--labels", type=str, nargs="+", help="add label(s)")
     parser_additem.add_argument("-n", "--priority", type=int, default=1, help="set priority (1=highest, 4=lowest)")
     parser_additem.add_argument("-f", "--file", type=argparse.FileType('r'), help="file to upload/attach to comment")
-    parser_additem.add_argument("-p", "--project", type=str, default="Inbox", help="parent project of item")
+    parser_additem.add_argument("-p", "--parent", type=str, default="Inbox", help="parent project of item")
     parser_additem.set_defaults(func=command_additem)
 
     parser_addlabel = subparsers.add_parser("addlabel", aliases=['al'], help="create label, optionally add to item(s)")
