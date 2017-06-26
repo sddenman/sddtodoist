@@ -15,10 +15,10 @@ def command_additem(command_args):
 
     if len(projects) == 0:
         write_result_and_exit(1, vars_args, None,
-                              parser.prog+" ERROR: Project with name "+vars_args['project']+" not found.")
+                              parser.prog + " ERROR: Project with name "+vars_args['project']+" not found.")
     elif len(projects) > 1:
         write_result_and_exit(1, vars_args, None,
-                              parser.prog+" ERROR: Multiple projects with name "+vars_args['project']+" found.")
+                              parser.prog + " ERROR: Multiple projects with name "+vars_args['project']+" found.")
     else:
         add_item_args = {'project_id': projects[0]['id'], 'title': vars_args['name']}
         for key in ['due_date', 'comment', 'labels', 'priority']:
@@ -30,7 +30,8 @@ def command_additem(command_args):
 
         new_item = add_item(**add_item_args)
 
-        write_result_and_exit(0, vars_args, new_item, parser.prog+": New item created with ID="+str(new_item['id'])+".")
+        write_result_and_exit(0, vars_args, new_item,
+                              parser.prog + ": New item created with ID="+str(new_item['id'])+".")
 
 
 def command_addlabel(command_args):
@@ -40,25 +41,22 @@ def command_addlabel(command_args):
     if vars_args['itemids']:
         try:
             new_label = add_label(vars_args['name'], vars_args['itemids'].split(","))
+            write_result_and_exit(0, vars_args, new_label,
+                                  parser.prog + ": Label with name '" + str(new_label['name']) +
+                                  "' and id " + str(new_label['id']) +
+                                  " added to items with id(s) " + str(vars_args['itemids']) + "."
+                                  )
         except AttributeError:
-            write_result_and_exit(1, vars_args, dict(),
+            write_result_and_exit(1, vars_args, None,
                                   parser.prog +
                                   " ERROR: One or more of item ids " + str(vars_args['itemids']) + " not found."
                                   )
             raise
-        write_result_and_exit(0, vars_args, new_label,
-                              parser.prog +
-                              ": Label with name '" + str(new_label['name']) +
-                              "' and id " + str(new_label['id']) +
-                              " added to items with id(s) " + str(vars_args['itemids']) + "."
-                              )
     else:
         new_label = add_label(vars_args['name'])
         write_result_and_exit(0, vars_args, new_label,
-                              parser.prog +
-                              ": Label with name '" + str(new_label['name']) +
-                              "' and id " + str(new_label['id']) +
-                              " added."
+                              parser.prog + ": Label with name '" + str(new_label['name']) +
+                              "' and id " + str(new_label['id']) + " added."
                               )
 
 
@@ -71,21 +69,23 @@ def command_addproject(command_args):
     if vars_args['parent']:
         project_objs = get_project_by_name(vars_args['project'])
         if len(project_objs) == 0:
-            write_result_and_exit(1, vars_args, dict(), parser.prog +
-                                  " ERROR: Parent project named " + str(vars_args['parent']) + " not found.")
+            write_result_and_exit(1, vars_args, None,
+                                  parser.prog + " ERROR: Parent project named " +
+                                  str(vars_args['parent']) + " not found."
+                                  )
         elif len(project_objs) > 1:
-            write_result_and_exit(1, vars_args, dict(), parser.prog +
-                                  " ERROR: Multiple parent projects named " + str(vars_args['parent']) + " found.")
+            write_result_and_exit(1, vars_args, None,
+                                  parser.prog + " ERROR: Multiple parent projects named " +
+                                  str(vars_args['parent']) + " found."
+                                  )
         else:
             add_project_args['parent_project_id'] = project_objs[0]['id']
 
     new_project = add_project(**add_project_args)
 
     write_result_and_exit(0, vars_args, new_project,
-                          parser.prog +
-                          ": Project (name:" + str(new_project['name']) +
-                          ", id:" + str(new_project['itemid']) +
-                          ") added."
+                          parser.prog + ": Project (name:" + str(new_project['name']) +
+                          ", id:" + str(new_project['itemid']) + ") added."
                           )
 
 
@@ -117,14 +117,10 @@ def command_addcomment(command_args):
 
     new_comment = add_comment(vars_args['text'], item_id=vars_args['itemid'], attachment=attachment_obj)
 
-    if vars_args['pipeobj']:
-        sys.stdout.write(str(new_comment))
-    elif vars_args['pipeid']:
-        sys.stdout.write(str(new_comment['id']))
-    else:
-        print(parser.prog, ": New comment created for item ID ", vars_args['itemid'], " with ID=", str(new_comment['id']))
-
-    sys.exit(0)
+    write_result_and_exit(0, vars_args, new_comment,
+                          parser.prog + ": New comment created for item ID " + vars_args['itemid'] +
+                          " with ID=" + str(new_comment['id'])
+                          )
 
 
 def command_getsyncresponse(command_args):
@@ -136,19 +132,22 @@ def command_getsyncresponse(command_args):
     if vars_args['key']:
         try:
             key_value = sync_response[vars_args['key']]
-        except:
-            write_result_and_exit(1, vars_args, None, parser.prog +
-                                  " ERROR: No key with name '" + vars_args['key'] + "' in sync response.")
-        write_result_and_exit(0,
-                              vars_args,
-                              key_value,
-                              vars_args['key'] + ": \n" +
-                              str(pformat_todoist_obj(key_value))
-                              )
+            write_result_and_exit(0,
+                                  vars_args,
+                                  key_value,
+                                  parser.prog + ": getsyncresponse[" + vars_args['key'] + "]=\n" +
+                                  str(pformat_todoist_obj(key_value))
+                                  )
+        except KeyError:
+            write_result_and_exit(1, vars_args, None,
+                                  parser.prog + " ERROR: No key with name '" + vars_args['key'] +
+                                  "' in sync response."
+                                  )
     else:
         write_result_and_exit(0,
                               vars_args,
                               sync_response,
+                              parser.prog + ": getsyncresponse=\n" +
                               str(pformat_todoist_obj(sync_response))
                               )
 
@@ -175,7 +174,7 @@ if __name__ == "__main__":
     parser_additem.add_argument("-l", "--labels", type=str, nargs="+", help="add label(s)")
     parser_additem.add_argument("-n", "--priority", type=int, default=1, help="set priority (1=highest, 4=lowest)")
     parser_additem.add_argument("-f", "--file", type=argparse.FileType('r'), help="file to upload/attach to comment")
-    parser_additem.add_argument("-p", "--project", type=str, default="Inbox", help="parent project of item")
+    parser_additem.add_argument("-p", "--parent", type=str, default="Inbox", help="parent project of item")
     parser_additem.set_defaults(func=command_additem)
 
     parser_addlabel = subparsers.add_parser("addlabel", aliases=['al'], help="create label, optionally add to item(s)")
