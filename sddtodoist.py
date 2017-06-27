@@ -127,7 +127,7 @@ def get_sync_response() -> _todoistmodels.Model:
 
 
 def write_result_and_exit(exit_code: int,
-                          vars_args: object,
+                          vars_args: vars,
                           return_obj: _todoistmodels.Model = None,
                           cmdline_msg: str = None
                           ):
@@ -140,11 +140,11 @@ def write_result_and_exit(exit_code: int,
             return_obj_ids = []
             try:
                 return_obj_ids.append(return_obj['id'])
-            except:
+            except AttributeError:
                 for sub_obj in return_obj:
                     try:
                         return_obj_ids.append(sub_obj['id'])
-                    except:
+                    except AttributeError:
                         pass
             sys.stdout.write(str(return_obj_ids))
     else:
