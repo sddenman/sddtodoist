@@ -1,209 +1,232 @@
 #!/usr/bin/env python3
 
-import argparse
 from sddtodoist import *
+import todoist
+import argparse
+import fileinput
+import sys
 
 
-def command_additem(command_args):
+def command_additem(args):
 
-    vars_args = vars(command_args)
-
-    if 'project' in vars_args:
-        projects = get_project_by_name(vars_args['project'])
+    if args['id']:
+        project_id = args['id']
     else:
-        projects = get_project_by_name('Inbox')
+        project_id = get_inbox_project()['id']
 
-    if len(projects) == 0:
-        write_result_and_exit(1, vars_args, None,
-                              parser.prog + " ERROR: Project with name "+vars_args['project']+" not found.")
-    elif len(projects) > 1:
-        write_result_and_exit(1, vars_args, None,
-                              parser.prog + " ERROR: Multiple projects with name "+vars_args['project']+" found.")
-    else:
-        add_item_args = {'project_id': projects[0]['id'], 'title': vars_args['name']}
-        for key in ['due_date', 'comment', 'labels', 'priority']:
-            if key in vars_args:
-                add_item_args[key] = vars_args[key]
-        if 'file' in vars_args:
-            if vars_args['file'] is not None:
-                add_item_args['attachment'] = upload_file(vars_args['file'].name)
-
-        new_item = add_item(**add_item_args)
-
-        write_result_and_exit(0, vars_args, new_item,
-                              parser.prog + ": New item created with ID="+str(new_item['id'])+".")
+    try:
+        item = add_item(title=args['name'], project_id=project_id)
+        write_result_and_exit(0, args, item,
+                              par.prog + ": New item with ID=" + str(item['id']) +
+                              " created in project with ID=" + str(project_id) + ".")
+    except AttributeError:
+        write_result_and_exit(1, args, None,
+                              par.prog + ": ERROR: Project with ID=" + str(project_id) +
+                              " does not exist. Item not created."
+                              )
 
 
-def command_addlabel(command_args):
+def command_setduedate(args):
 
-    vars_args = vars(command_args)
+    try:
+        item = set_item_duedate(item_id=args['id'], date_string=args['date'])
+        write_result_and_exit(0, args, item,
+                              par.prog + ": Due date set to " + str(item['date_string']) +
+                              " for item with ID=" + str(item['id']) + "."
+                              )
+    except AttributeError:
+        write_result_and_exit(1, args, None,
+                              par.prog + ": ERROR: Item with ID=" + str(args['id']) +
+                              " does not exist. Due date not set."
+                              )
 
-    if vars_args['itemids']:
+
+def command_setpriority(args):
+
+    if args["id"] == "stdin":
+        for line in fileinput.input("-"):
+            args["id"] = line.strip("\n")
+    if not isinstance(int(args["id"]),int):
+        write_result_and_exit(1, args, None,
+                              par.prog + ": ERROR: id argument is not an integer. Priority not set."
+                              )
+
+    try:
+        item = set_item_priority(item_id=args['id'], priority=args['priority'])
+        write_result_and_exit(0, args, item,
+                              par.prog + ": Priority set to " + str(item['priority']) +
+                              " for item with ID=" + str(item['id']) + "."
+                              )
+    except AttributeError:
+        write_result_and_exit(1, args, None,
+                              par.prog + ": ERROR: Item with ID=" + str(args['id']) +
+                              " does not exist. Priority not set."
+                              )
+
+
+def command_addlabel(args):
+
+    if args['id']:
         try:
-            new_label = add_label(vars_args['name'], vars_args['itemids'].split(","))
-            write_result_and_exit(0, vars_args, new_label,
-                                  parser.prog + ": Label with name '" + str(new_label['name']) +
+            new_label = add_label(args['name'], args['id'])
+            write_result_and_exit(0, args, new_label,
+                                  par.prog + ": Label with name '" + str(new_label['name']) +
                                   "' and id " + str(new_label['id']) +
-                                  " added to items with id(s) " + str(vars_args['itemids']) + "."
+                                  " added to item with ID=" + str(args['id']) + "."
                                   )
         except AttributeError:
-            write_result_and_exit(1, vars_args, None,
-                                  parser.prog +
-                                  " ERROR: One or more of item ids " + str(vars_args['itemids']) + " not found."
+            write_result_and_exit(1, args, None,
+                                  par.prog +
+                                  " ERROR: Item with ID=" + str(args['id']) + " not found."
                                   )
-            raise
     else:
-        new_label = add_label(vars_args['name'])
-        write_result_and_exit(0, vars_args, new_label,
-                              parser.prog + ": Label with name '" + str(new_label['name']) +
+        new_label = add_label(args['name'])
+        write_result_and_exit(0, args, new_label,
+                              par.prog + ": Label with name '" + str(new_label['name']) +
                               "' and id " + str(new_label['id']) + " added."
                               )
 
 
-def command_addproject(command_args):
+def command_addproject(args):
 
-    vars_args = vars(command_args)
+    new_project = add_project(name=args['name'], parent_project_id=args['id'])
 
-    add_project_args = dict(name=vars_args['name'])
-
-    if vars_args['parent']:
-        project_objs = get_project_by_name(vars_args['project'])
-        if len(project_objs) == 0:
-            write_result_and_exit(1, vars_args, None,
-                                  parser.prog + " ERROR: Parent project named " +
-                                  str(vars_args['parent']) + " not found."
-                                  )
-        elif len(project_objs) > 1:
-            write_result_and_exit(1, vars_args, None,
-                                  parser.prog + " ERROR: Multiple parent projects named " +
-                                  str(vars_args['parent']) + " found."
-                                  )
-        else:
-            add_project_args['parent_project_id'] = project_objs[0]['id']
-
-    new_project = add_project(**add_project_args)
-
-    write_result_and_exit(0, vars_args, new_project,
-                          parser.prog + ": Project (name:" + str(new_project['name']) +
-                          ", id:" + str(new_project['itemid']) + ") added."
+    write_result_and_exit(0, args, new_project,
+                          par.prog + ": Project (name:" + str(new_project['name']) +
+                          ", id:" + str(new_project['id']) + ") added."
                           )
 
 
-def command_removeproject(command_args):
+def command_removeproject(args):
 
-    vars_args = vars(command_args)
-
-    removed_project = remove_project(vars_args['id'], vars_args['delete'])
-
-    if vars_args['delete']:
-        action = "deleted"
+    try:
+        removed_project = remove_project(args['id'], args['delete'])
+    except AttributeError:
+        write_result_and_exit(1, args, None, par.prog + ": ERROR - Project not found.")
+    except todoist.api.SyncError as err:
+        write_result_and_exit(1, args, None, par.prog + ": ERROR - Todoist SyncError=" + pformat_todoist_obj(err.args))
     else:
-        action = "archived"
-
-    write_result_and_exit(0, vars_args, removed_project,
-                          parser.prog + ": Project with ID=" + str(removed_project['id']) +
-                          " and Name=" + removed_project['name'] + " " + action + "."
-                          )
+        del_or_arc = " DELETED." if args["delete"] else " archived."
+        write_result_and_exit(0, args, removed_project, par.prog + ": Project with ID=" + str(args['id']) + del_or_arc)
 
 
-def command_addcomment(command_args):
+def command_addcomment(args):
 
-    vars_args = vars(command_args)
-
-    if 'file' in vars_args and vars_args['file'] is not None:
-        attachment_obj = upload_file(vars_args['file'].name)
+    if args['file']:
+        attachment_obj = upload_file(args['file'].name)
     else:
         attachment_obj = None
 
-    new_comment = add_comment(vars_args['text'], item_id=vars_args['itemid'], attachment=attachment_obj)
-
-    write_result_and_exit(0, vars_args, new_comment,
-                          parser.prog + ": New comment created for item ID " + vars_args['itemid'] +
-                          " with ID=" + str(new_comment['id'])
-                          )
-
-
-def command_getsyncresponse(command_args):
-
-    vars_args = vars(command_args)
-
-    sync_response = get_sync_response()
-
-    if vars_args['key']:
-        try:
-            key_value = sync_response[vars_args['key']]
-            write_result_and_exit(0,
-                                  vars_args,
-                                  key_value,
-                                  parser.prog + ": getsyncresponse[" + vars_args['key'] + "]=\n" +
-                                  str(pformat_todoist_obj(key_value))
-                                  )
-        except KeyError:
-            write_result_and_exit(1, vars_args, None,
-                                  parser.prog + " ERROR: No key with name '" + vars_args['key'] +
-                                  "' in sync response."
-                                  )
-    else:
-        write_result_and_exit(0,
-                              vars_args,
-                              sync_response,
-                              parser.prog + ": getsyncresponse=\n" +
-                              str(pformat_todoist_obj(sync_response))
+    try:
+        new_comment = add_comment(args['text'], item_id=args['id'], attachment=attachment_obj)
+        write_result_and_exit(0, args, new_comment,
+                              par.prog + ": New comment created for item ID " + str(args['id']) +
+                              " with ID=" + str(new_comment['id'])
+                              )
+    except todoist.api.SyncError:
+        write_result_and_exit(1, args, None,
+                              par.prog + ": ERROR - SyncError exception thrown."
                               )
 
 
-def command_notimplemented(command_args):
+def command_getprojectid(args):
 
-    print(parser.prog, ": Command", command_args.command, "not yet implemented.")
+    project_id_list = get_project_id_by_name(args['name'])
+
+    if project_id_list:
+        write_result_and_exit(0, args, project_id_list,
+                              par.prog + ": Found project ID(s): " + str(project_id_list))
+    else:
+        write_result_and_exit(0, args, project_id_list,
+                              par.prog + ": No projects found with name " + args['name'] + ".")
+
+
+def command_getinfo(args):
+
+    sync_response = get_sync_response()
+
+    if args['key']:
+        try:
+            sync_response = sync_response[args['key']]
+        except KeyError:
+            write_result_and_exit(1, args, None,
+                                  par.prog + " ERROR - " + args['key'] + " key not found."
+                                  )
+
+    write_result_and_exit(0, args, sync_response,
+                          par.prog + ": getinfo(" + "key="+str(args['key']) + ")\n" +
+                          str(pformat_todoist_obj(sync_response))
+                          )
+
+
+def command_notimplemented(args):
+
+    print(par.prog, ": Command", args.command, "not yet implemented.")
     sys.exit(1)
 
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Access Todoist web api")
-    pipe_options_group = parser.add_mutually_exclusive_group()
-    pipe_options_group.add_argument("--pipeobj", action='store_true', help="write return object(s) to stdout")
-    pipe_options_group.add_argument("--pipeid", action='store_true', help="write return object ID(s) to stdout")
+    cargspar = argparse.ArgumentParser(add_help=False)
+    cargspar.add_argument("--out", type=str, nargs="?", default=None, const="FULL", metavar="<key>",
+                          help="write return object(s) to stdout. if <key> specified, limit to <key> value from return "
+                               "object(s)")
 
-    subparsers = parser.add_subparsers(description='Sub-command description', help='sub-command help', dest='command')
+    par = argparse.ArgumentParser(add_help=True)
 
-    parser_additem = subparsers.add_parser("additem", aliases=['ai'], help="create a new item")
-    parser_additem.add_argument("name", type=str, help="item name")
-    parser_additem.add_argument("-d", "--due_date", type=str, default="today", help="due date (Todoist date_string)")
-    parser_additem.add_argument("-c", "--comment", type=str, help="add comment")
-    parser_additem.add_argument("-l", "--labels", type=str, nargs="+", help="add label(s)")
-    parser_additem.add_argument("-n", "--priority", type=int, default=1, help="set priority (1=highest, 4=lowest)")
-    parser_additem.add_argument("-f", "--file", type=argparse.FileType('r'), help="file to upload/attach to comment")
-    parser_additem.add_argument("-p", "--parent", type=str, default="Inbox", help="parent project of item")
-    parser_additem.set_defaults(func=command_additem)
+    spars = par.add_subparsers(description='Sub-command description', dest='command', help='sub-command help')
 
-    parser_addlabel = subparsers.add_parser("addlabel", aliases=['al'], help="create label, optionally add to item(s)")
-    parser_addlabel.add_argument("name", type=str, help="label name (will be created if it doesn't exist)")
-    parser_addlabel.add_argument("-i", "--itemids", type=str, help="Add label to item ID(s)")
-    parser_addlabel.set_defaults(func=command_addlabel)
+    par_ai = spars.add_parser("additem", aliases=['ai'], parents=[cargspar],
+                              help="create a new item, add to specified project id or Inbox"
+                              )
+    par_ai.add_argument("name", type=str, metavar="<itemname>", help="item name (enclose in quotes)")
+    par_ai.add_argument("-i", "--id", type=int, metavar="<id>", help="project id")
+    par_ai.set_defaults(func=command_additem)
 
-    parser_addcomment = subparsers.add_parser("addcomment", aliases=['ac'], help="add a comment to an item")
-    parser_addcomment.add_argument("text", type=str, help="comment text")
-    parser_addcomment.add_argument("-f", "--file", type=argparse.FileType('r'), help="file to upload/attach to comment")
-    parser_addcomment.add_argument("-i", "--itemid", type=int, required=True, help="Add comment to this item ID")
-    parser_addcomment.set_defaults(func=command_addcomment)
+    par_sdd = spars.add_parser("setduedate", aliases=['sdd'], parents=[cargspar], help="set item due date")
+    par_sdd.add_argument("date", type=str, metavar="<date_string>")
+    par_sdd.add_argument("-i", "--id", type=int, required=True, metavar="<id>", help="item id")
+    par_sdd.set_defaults(func=command_setduedate)
 
-    parser_addproject = subparsers.add_parser("addproject", aliases=['ap'], help="create a new project")
-    parser_addproject.add_argument("name", type=str, help="project name")
-    parser_addproject.add_argument("-p", "--parent", type=str, help="parent project of project")
-    parser_addproject.set_defaults(func=command_addproject)
+    par_sp = spars.add_parser("setpriority", aliases=['sp'], parents=[cargspar], help="set item priority")
+    par_sp.add_argument("priority", type=int, metavar="<priority>", help="item priority: 1-4, 1=low, 4=high")
+    par_sp.add_argument("-i", "--id", type=str, metavar="<id>|stdin", help="item id (stdin=get id from stdin)")
+    par_sp.set_defaults(func=command_setpriority)
 
-    parser_removeproject = subparsers.add_parser("removeproject", aliases=['rp'], help="remove project by archiving")
-    parser_removeproject.add_argument("id", type=int, help="project id")
-    parser_removeproject.add_argument("-d", "--delete", action='store_true', help="delete instead of archive")
-    parser_removeproject.set_defaults(func=command_removeproject)
+    par_al = spars.add_parser("addlabel", aliases=['al'], parents=[cargspar],
+                              help="create label, optionally add to item"
+                              )
+    par_al.add_argument("name", type=str, help="label name (will be created if it doesn't exist)")
+    par_al.add_argument("-i", "--id", type=int, metavar="<id>", help="add label to this item id")
+    par_al.set_defaults(func=command_addlabel)
 
-    parser_getsyncresponse = subparsers.add_parser("getsyncresponse", aliases=['gsr'], help="get todoist data")
-    parser_getsyncresponse.add_argument("-k", "--key", type=str, help="key name (e.g., items, projects)")
-    parser_getsyncresponse.set_defaults(func=command_getsyncresponse)
+    par_ac = spars.add_parser("addcomment", aliases=['ac'], parents=[cargspar], help="add comment to item or project")
+    par_ac.add_argument("text", type=str, help="comment text")
+    par_ac.add_argument("-f", "--file", type=argparse.FileType('r'), help="file to upload and attach to comment")
+    par_ac.add_argument("-i", "--id", type=int, required=True, metavar="<id>", help="add comment to item or project id")
+    par_ac.set_defaults(func=command_addcomment)
 
-    args = parser.parse_args()
-    if args.command:
-        args.func(args)
+    par_ap = spars.add_parser("addproject", aliases=['ap'], parents=[cargspar], help="create project")
+    par_ap.add_argument("name", type=str, help="project name")
+    par_ap.add_argument("-i", "--id", type=int, metavar="<id>", help="parent project id")
+    par_ap.set_defaults(func=command_addproject)
+
+    par_rp = spars.add_parser("removeproject", aliases=['rp'], parents=[cargspar], help="remove project")
+    par_rp.add_argument("-i", "--id", type=int, metavar="<id>", help="project id")
+    par_rp.add_argument("-d", "--delete", action='store_true', help="delete (instead of archive)")
+    par_rp.set_defaults(func=command_removeproject)
+
+    par_gpi = spars.add_parser("getprojectid", aliases=['gpid'], parents=[cargspar], help="get project id(s) by name")
+    par_gpi.add_argument("name", type=str, help="project name in quotes")
+    par_gpi.set_defaults(func=command_getprojectid)
+
+    par_gi = spars.add_parser("getinfo", aliases=['gi'], parents=[cargspar], help="get todoist data, options are ANDed")
+    par_gi.add_argument("-k", "--key", type=str, metavar="<keyname>", help="get objects within <keyname> (e.g., items, "
+                                                                           "projects, labels)")
+    par_gi.set_defaults(func=command_getinfo)
+
+    parsed_args = par.parse_args()
+    if parsed_args.command:
+        parsed_args.func(vars(parsed_args))
     else:
-        parser.print_usage()
+        par.print_usage()

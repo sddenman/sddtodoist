@@ -1,4 +1,4 @@
-from todoist import TodoistAPI
+import todoist
 from todoist import models as _todoistmodels
 import configparser
 import os
@@ -19,32 +19,55 @@ class ConfigVal:
         self.value = config[section][key]
 
 
-def add_item(title: str, project_id: int, due_date: str = "today", priority: int = 4, comment: str = "",
-             attachment: object = None, labels: list = None
-             ) -> _todoistmodels.Item:
+def add_item(title: str, project_id: int) -> _todoistmodels.Item:
 
-    label_ids = []
-    if labels:
-        for label_name in labels:
-            label_ids.append(_todoistapi.labels.add(label_name)['id'])
+    try:
+        project = _todoistapi.projects.get_by_id(project_id)
+    except AttributeError:
+        raise
 
-    new_item = _todoistapi.items.add(content=title,
-                                     date_string=due_date,
-                                     priority=priority,
-                                     project_id=project_id,
-                                     labels=label_ids
-                                     )
+    new_item = _todoistapi.items.add(content=title, project_id=project)
 
-    if attachment:
-        add_comment(comment, new_item['id'], attachment)
-    elif comment:
-        add_comment(comment, new_item['id'])
-    else:
-        pass
-
-    _todoistapi.commit()
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
 
     return new_item
+
+
+def set_item_duedate(item_id: int, date_string: str) -> _todoistmodels.Item:
+
+    try:
+        item = _todoistapi.items.get_by_id(item_id)
+    except AttributeError:
+        raise
+
+    item.update(date_string=date_string)
+
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
+
+    return item
+
+
+def set_item_priority(item_id: int, priority: int) -> _todoistmodels.Item:
+
+    try:
+        item = _todoistapi.items.get_by_id(item_id)
+    except AttributeError:
+        raise
+
+    item.update(priority=priority)
+
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
+
+    return item
 
 
 def add_comment(text: str, item_id: int, attachment: object = None) -> _todoistmodels.Note:
@@ -54,104 +77,138 @@ def add_comment(text: str, item_id: int, attachment: object = None) -> _todoistm
     else:
         new_note = _todoistapi.notes.add(item_id, content=text)
 
-    _todoistapi.commit()
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
 
     return new_note
 
 
-def add_label(name: str, item_ids: list = None) -> _todoistmodels.Label:
+def add_label(name: str, item_id: int = None) -> _todoistmodels.Label:
 
     new_label = _todoistapi.labels.add(name)
-    _todoistapi.commit()
 
-    if item_ids:
-        for item_id in item_ids:
-            try:
-                item = _todoistapi.items.get_by_id(int(item_id))
-            except AttributeError:
-                print("ERROR: Item id " + item_id + " does not exist.")
-                raise
-            new_item_labels = item['labels']
-            new_item_labels[len(new_item_labels):] = [new_label['id']]
-            item.update(labels=new_item_labels)
+    try:
         _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
+
+    if item_id:
+        try:
+            item = _todoistapi.items.get_by_id(item_id)
+        except AttributeError:
+            raise
+        new_item_labels = item['labels']
+        new_item_labels[len(new_item_labels):] = [new_label['id']]
+        item.update(labels=new_item_labels)
+        try:
+            _todoistapi.commit()
+        except todoist.api.SyncError:
+            raise
 
     return new_label
 
 
 def add_project(name: str, parent_project_id: int = None) -> _todoistmodels.Project:
 
-    if parent_project_id is not None:
-        parent_project_obj = _todoistapi.projects.get_by_id(parent_project_id)
-        new_project = _todoistapi.projects.add(
-            name,
-            item_order=parent_project_obj['item_order'],
-            indent=parent_project_obj['indent']+1
-        )
+    if parent_project_id:
+        try:
+            parent_project_obj = _todoistapi.projects.get_by_id(parent_project_id)
+        except AttributeError:
+            raise
+        new_project = _todoistapi.projects.add(name,
+                                               item_order=parent_project_obj['item_order'],
+                                               indent=parent_project_obj['indent']+1
+                                               )
     else:
         new_project = _todoistapi.projects.add(name)
 
-    _todoistapi.commit()
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
 
     return new_project
 
 
 def remove_project(project_id: int, delete_project: bool = False) -> _todoistmodels.Project:
 
-    if delete_project:
-        removed_project = _todoistapi.projects.delete(project_id)
-    else:
-        removed_project = _todoistapi.projects.archive(project_id)
+    try:
+        _todoistapi.projects.get_by_id(project_id)
+    except AttributeError:
+        raise
 
-    _todoistapi.commit()
+    removed_project = _todoistapi.projects.delete([project_id]) if delete_project \
+        else _todoistapi.projects.archive(project_id)
+
+    try:
+        _todoistapi.commit()
+    except todoist.api.SyncError:
+        raise
 
     return removed_project
 
 
-def get_project_by_name(name: str) -> list:
+def get_project_id_by_name(name: str) -> list:
 
     projects = []
     for project in get_sync_response()['projects']:
         if project['name'] == name:
-            projects.append(project)
+            projects.append(project['id'])
 
     return projects
+
+
+def get_inbox_project() -> _todoistmodels.Project:
+
+    for project in get_sync_response()['projects']:
+        if project['inbox_project']:
+            return project
 
 
 def get_sync_response() -> _todoistmodels.Model:
 
     _todoistapi.reset_state()
-    sync_response = _todoistapi.sync()
 
-    return sync_response
+    try:
+        return _todoistapi.sync()
+    except todoist.api.SyncError:
+        raise
 
 
 def write_result_and_exit(exit_code: int,
-                          vars_args: object,
-                          return_obj: _todoistmodels.Model = None,
+                          vars_args: vars,
+                          return_obj: object = None,
                           cmdline_msg: str = None
                           ):
 
-    if vars_args['pipeobj']:
+    if vars_args['out']:
         if return_obj:
-            sys.stdout.write(str(return_obj))
-    elif vars_args['pipeid']:
-        if return_obj:
-            return_obj_ids = []
-            try:
-                return_obj_ids.append(return_obj['id'])
-            except:
-                for sub_obj in return_obj:
-                    try:
-                        return_obj_ids.append(sub_obj['id'])
-                    except:
-                        pass
-            sys.stdout.write(str(return_obj_ids))
+            if vars_args['out'] == "FULL":
+                sys.stdout.write(str(return_obj))
+            else:
+                sys.stdout.write(str(find_key_in_object(return_obj, vars_args['out'])))
     else:
         if cmdline_msg:
             print(cmdline_msg)
 
     sys.exit(exit_code)
+
+
+def find_key_in_object(obj: dict, key: str) -> list:
+    try:
+        return obj[key]
+    except (KeyError, TypeError):
+        try:
+            return_list = []
+            for i in obj:
+                returnobj = find_key_in_object(i, key)
+                if returnobj:
+                    return_list.append(returnobj)
+            return return_list
+        except TypeError:
+            return obj
 
 
 def pformat_todoist_obj(todoist_obj: _todoistmodels.Model) -> str:
@@ -165,4 +222,4 @@ def upload_file(filename) -> _todoistmodels.Model:
 
 
 _apitoken = ConfigVal('apitoken').value
-_todoistapi = TodoistAPI(_apitoken)
+_todoistapi = todoist.TodoistAPI(_apitoken)
