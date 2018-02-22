@@ -159,6 +159,17 @@ def command_getinfo(args):
                           )
 
 
+def command_getemail(args):
+
+    if args['id'] and args['type']:
+        email = get_email_by_id(object_id=args['id'], object_type=args['type'])
+
+    write_result_and_exit(0, args, email,
+                          par.prog + ": Email-to address for " + args['type'] + " ID " + str(args['id']) +
+                          " is " + email + "."
+                          )
+
+
 def command_notimplemented(args):
 
     print(par.prog, ": Command", args.command, "not yet implemented.")
@@ -224,6 +235,12 @@ if __name__ == "__main__":
     par_gi.add_argument("-k", "--key", type=str, metavar="<keyname>", help="get objects within <keyname> (e.g., items, "
                                                                            "projects, labels)")
     par_gi.set_defaults(func=command_getinfo)
+
+    par_ge = spars.add_parser("getemail", aliases=['ge'], parents=[cargspar], help="get email-to address for project, "
+                                                                                   "project comments, or item")
+    par_ge.add_argument("-i", "--id", type=int, metavar="<id>", help="object id")
+    par_ge.add_argument("-t", "--type", type=str, metavar="<type>", help="object type: project, project_comments, item")
+    par_ge.set_defaults(func=command_getemail)
 
     parsed_args = par.parse_args()
     if parsed_args.command:

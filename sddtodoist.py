@@ -167,6 +167,13 @@ def get_inbox_project() -> _todoistmodels.Project:
             return project
 
 
+def get_email_by_id(object_id: int, object_type: str) -> str:
+
+    email_obj = _todoistapi.emails.get_or_create(obj_id=object_id, obj_type=object_type)
+    email = email_obj['email']
+    return email
+
+
 def get_sync_response() -> _todoistmodels.Model:
 
     _todoistapi.reset_state()
